@@ -34,13 +34,16 @@ export class AppComponent {
         }),
         pluck('name')
       )
-      /**
-       * 2. set the name property of this component to be the data in the oName observable
-       */
-
       .subscribe((response) => {
-        this.name = response;
+        console.log(response);
       });
+
+    /**
+     * 2. set the name property of this component to be the data in the oName observable
+     */
+    oName.subscribe((nameResponse) => {
+      this.name = nameResponse;
+    });
 
     /*
       3. get the flops out of the oFlops observable and get them displaying on the screen
