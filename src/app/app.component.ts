@@ -10,6 +10,7 @@ import { map, pluck, tap } from 'rxjs/operators';
 })
 export class AppComponent {
   name;
+  flops;
 
   ngOnInit() {
     /**
@@ -25,21 +26,33 @@ export class AppComponent {
 
     oActor
       .pipe(
-        // map(response => {
-        //   return response.name
-        // }
-        map((response) => {
-          response.name;
-        })
+        // map((response) => {
+        //   response.name;
+        // })
+        tap((response) => {
+          console.log(`oActor response: ${response}`);
+        }),
+        pluck('name')
       )
+      /**
+       * 2. set the name property of this component to be the data in the oName observable
+       */
+
       .subscribe((response) => {
-        console.log(response);
+        this.name = response;
       });
 
     /*
-      
-      2. set the name property of this component to be the data in the oName observable
       3. get the flops out of the oFlops observable and get them displaying on the screen
     */
+    oFlops
+      .pipe(
+        tap((response) => {
+          console.log(`oFlops response: ${response}`);
+        })
+      )
+      .subscribe((response) => {
+        this.flops = response;
+      });
   }
 }
